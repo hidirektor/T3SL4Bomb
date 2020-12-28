@@ -1,0 +1,25 @@
+Prefix: '&6&lT3SL4Claim &8» '
+Settings:
+  enabled-worlds:
+    - 'world'
+    - 'Orman'
+  explosive-range: 4.0
+Item:
+  name: '&bBaskın Bombası'
+  lore: '&6Fırlattığın Yerde Delik Açar!'
+Commands:
+  help1: '&8&l&m-&f&l&m-&8&l&m-&f&l&m-&8&l&m-&f&l&m-&8&l&m[&6 &lT3SL4Bomb &8&l&m]&f&l&m-&8&l&m-&f&l&m-&8&l&m-&f&l&m-&8&l&m-'
+  help2: '&a/tb take &bAdet &f»&eBelirttiğin Miktarda %kartopu% &eAlırsın.'
+  help3: '&a/tb give &bOyuncu &cAdet &f»&eBelirttiğin Oyuncuya %kartopu% &eVerir.'
+  help4: '&a/tb reload &f»&eEklentiyi Yeniler'
+Messages:
+  reload: "&eEklenti Başarılı Bir Şekilde Yenilendi."
+  perm: "&cDostum Maalesef Bunun İçin Yetkin Yok."
+  world: "&cDostum Maalesef %kartopu% Bulunduğun Dünyada Kullanılamaz."
+  add: "&eEnvanterine &6%adet% &eTane %kartopu% &eEklendi."
+  give: "&b%player% &eAdlı Oyuncunun Envanterine &6%adet% &eTane %kartopu% &eEklendi."
+  arg-give: "&eDoğru Kullanım: &b/tb give &cOyuncu &eAdet"
+  arg-take: "&eDoğru Kullanım &b/tb take &bAdet"
+  player: "&eBelirtilen Oyuncu Bulunamadı!"
+  console: "&cDostum Bu Komutu Konsoldan Kullanamazsın!"
+  online: "&b%player% &eAdlı Oyuncu Çevrimiçi Değil."

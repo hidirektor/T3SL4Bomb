@@ -1,0 +1,9 @@
+name: T3SL4Bomb
+version: 28.12.2020
+author: SYN_T3SL4
+main: me.t3sl4.snowball.T3SL4Bomb
+
+commands:
+  tb:
+    description: Main command of T3SL4Bomb.
+    aliases: [baskin, kartopu, kt]
