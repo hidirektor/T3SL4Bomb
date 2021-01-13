@@ -112,7 +112,7 @@ public class T3SL4Bomb extends JavaPlugin implements Listener {
     @EventHandler
     public void p(ProjectileHitEvent e) {
         Projectile nesne = e.getEntity();
-        ItemMeta kartopuMeta = kartopu.getItemMeta();
+        //kartopuMeta = kartopu.getItemMeta();
         float range = MessageUtil.RANGE;
 
         if(nesne instanceof Snowball) {

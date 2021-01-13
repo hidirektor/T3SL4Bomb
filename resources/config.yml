@@ -15,7 +15,7 @@ Commands:
 Messages:
   reload: "&eEklenti Başarılı Bir Şekilde Yenilendi."
   perm: "&cDostum Maalesef Bunun İçin Yetkin Yok."
-  world: "&cDostum Maalesef %kartopu% Bulunduğun Dünyada Kullanılamaz."
+  world: "&cDostum &bMaalesef %kartopu% Bulunduğun Dünyada Kullanılamaz."
   add: "&eEnvanterine &6%adet% &eTane %kartopu% &eEklendi."
   give: "&b%player% &eAdlı Oyuncunun Envanterine &6%adet% &eTane %kartopu% &eEklendi."
   arg-give: "&eDoğru Kullanım: &b/tb give &cOyuncu &eAdet"
