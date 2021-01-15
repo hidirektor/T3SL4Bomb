@@ -39,20 +39,13 @@ public class T3SL4Bomb extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(this, this);
         manager.setup(this);
         MessageUtil.loadMessages();
+        loadItem();
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         TextComponent msg = new TextComponent("§e§lAuthor §7|| §e§lYapımcı");
         msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, (new ComponentBuilder("§7Eklenti Yapımcısı:\n   §8§l» §eSYN_T3SL4 \n   §8§l» §7Discord: §eHalil#4439")).create()));
-        kartopu = new ItemStack(Material.SNOW_BALL);
-        kartopuMeta = kartopu.getItemMeta();
-        List<String> lore = new ArrayList<String>();
-        lore.add(MessageUtil.ITEMLORE);
-
-        kartopuMeta.setDisplayName(MessageUtil.ITEMNAME);
-        kartopuMeta.setLore(lore);
-        kartopu.setItemMeta(kartopuMeta);
 
         if(cmd.getName().equalsIgnoreCase("tb")) {
             if(args.length == 0) {
@@ -111,27 +104,33 @@ public class T3SL4Bomb extends JavaPlugin implements Listener {
 
     @EventHandler
     public void p(ProjectileHitEvent e) {
+        Player p = (Player) e.getEntity().getShooter();
         Projectile nesne = e.getEntity();
-        //kartopuMeta = kartopu.getItemMeta();
+        String displayName = p.getItemInHand().getItemMeta().getDisplayName();
         float range = MessageUtil.RANGE;
 
         if(nesne instanceof Snowball) {
             if(MessageUtil.ENABLED_WORLDS.contains(nesne.getWorld().getName())) {
-                if(kartopuMeta != null) {
-                    String displayName = kartopuMeta.getDisplayName();
-                    if(displayName != null && displayName.equals(MessageUtil.ITEMNAME)) {
-                        if(e.getEntity().getShooter() instanceof Player) {
-                            if(e.getEntity().getType().equals(EntityType.SNOWBALL)) {
-                                Snowball bomba = (Snowball) e.getEntity();
-                                bomba.getWorld().createExplosion(bomba.getLocation(), range, false);
-                            }
-                        }
+                if(e.getEntity().getShooter() instanceof Player) {
+                   if(nesne.getType().equals(EntityType.SNOWBALL)) {
+                    if(displayName.equalsIgnoreCase(kartopuMeta.getDisplayName())) {
+                        nesne.getWorld().createExplosion(nesne.getLocation(), range, false);
                     }
+                   }
                 }
             } else {
-                Player p = (Player) nesne.getShooter();
                 p.sendMessage((MessageUtil.WORLD).replaceAll("%kartopu%", MessageUtil.ITEMNAME));
             }
         }
+    }
+
+    public void loadItem() {
+        kartopu = new ItemStack(Material.SNOW_BALL);
+        kartopuMeta = kartopu.getItemMeta();
+        kartopuMeta.setDisplayName(MessageUtil.ITEMNAME);
+        List<String> lore = new ArrayList<String>();
+        lore.add(MessageUtil.ITEMLORE);
+        kartopuMeta.setLore(lore);
+        kartopu.setItemMeta(kartopuMeta);
     }
 }
