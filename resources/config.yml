@@ -5,8 +5,15 @@ Settings:
     - 'Orman'
   explosive-range: 4.0
 Item:
-  name: '&bBaskın Bombası'
-  lore: '&6Fırlattığın Yerde Delik Açar!'
+  name: '&6&lBovem Bomba'
+  lore:
+    - '&r  '
+    - '&7Fırlattığınız alanda patlama yaratır'
+    - '&7ama obsidyenleri patlatmaz.'
+    - '&eTNT &7kullanarak, obsidyenleri'
+    - '&7patlatabilirsiniz.'
+    - '&r     '
+    - '&6&lDEĞERLİ BOMBA'
 Commands:
   help1: '&8&l&m-&f&l&m-&8&l&m-&f&l&m-&8&l&m-&f&l&m-&8&l&m[&6 &lT3SL4Bomb &8&l&m]&f&l&m-&8&l&m-&f&l&m-&8&l&m-&f&l&m-&8&l&m-'
   help2: '&a/tb take &bAdet &f»&eBelirttiğin Miktarda %kartopu% &eAlırsın.'

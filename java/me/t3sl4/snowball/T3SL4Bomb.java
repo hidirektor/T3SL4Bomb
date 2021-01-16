@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -16,11 +17,14 @@ import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public class T3SL4Bomb extends JavaPlugin implements Listener {
@@ -112,11 +116,17 @@ public class T3SL4Bomb extends JavaPlugin implements Listener {
         if(nesne instanceof Snowball) {
             if(MessageUtil.ENABLED_WORLDS.contains(nesne.getWorld().getName())) {
                 if(e.getEntity().getShooter() instanceof Player) {
-                   if(nesne.getType().equals(EntityType.SNOWBALL)) {
-                    if(displayName.equalsIgnoreCase(kartopuMeta.getDisplayName())) {
-                        nesne.getWorld().createExplosion(nesne.getLocation(), range, false);
+                    if(nesne.getType().equals(EntityType.SNOWBALL)) {
+                        if(p.getItemInHand().getItemMeta().hasDisplayName()) {
+                            if(displayName.equalsIgnoreCase(kartopuMeta.getDisplayName())) {
+                                if(p.getItemInHand().getItemMeta().getEnchants().equals(kartopuMeta.getEnchants())) {
+                                    if(p.getItemInHand().getItemMeta().getLore().equals(kartopuMeta.getLore())) {
+                                        nesne.getWorld().createExplosion(nesne.getLocation(), range, false);
+                                    }
+                                }
+                            }
+                        }
                     }
-                   }
                 }
             } else {
                 p.sendMessage((MessageUtil.WORLD).replaceAll("%kartopu%", MessageUtil.ITEMNAME));
@@ -128,9 +138,9 @@ public class T3SL4Bomb extends JavaPlugin implements Listener {
         kartopu = new ItemStack(Material.SNOW_BALL);
         kartopuMeta = kartopu.getItemMeta();
         kartopuMeta.setDisplayName(MessageUtil.ITEMNAME);
-        List<String> lore = new ArrayList<String>();
-        lore.add(MessageUtil.ITEMLORE);
-        kartopuMeta.setLore(lore);
+        kartopuMeta.setLore(MessageUtil.ITEMLORE);
+        kartopuMeta.addEnchant(Enchantment.DURABILITY, 10, true);
+        kartopuMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         kartopu.setItemMeta(kartopuMeta);
     }
 }

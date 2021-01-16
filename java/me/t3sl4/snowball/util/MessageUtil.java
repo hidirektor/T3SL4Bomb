@@ -8,7 +8,7 @@ public class MessageUtil {
     public static List<String> ENABLED_WORLDS = new ArrayList<>();
     public static float RANGE;
     public static String ITEMNAME;
-    public static String ITEMLORE;
+    public static List<String> ITEMLORE;
     public static String HELP1;
     public static String HELP2;
     public static String HELP3;
@@ -31,7 +31,7 @@ public class MessageUtil {
         ENABLED_WORLDS = manager.getConfig().getStringList("Settings.enabled-worlds");
         RANGE = manager.getConfig().getInt("Settings.explosive-range");
         ITEMNAME = colorize(manager.getConfig().getString("Item.name"));
-        ITEMLORE = colorize(manager.getConfig().getString("Item.lore"));
+        ITEMLORE = colorizeList(manager.getConfig().getStringList("Item.lore"));
         HELP1 = colorize(manager.getConfig().getString("Commands.help1"));
         HELP2 = colorize(manager.getConfig().getString("Commands.help2"));
         HELP3 = colorize(manager.getConfig().getString("Commands.help3"));
@@ -49,6 +49,13 @@ public class MessageUtil {
     }
 
     public static String colorize(String str) {
-        return str.replace("&", "§");
+        return str.replace("&", "");
+    }
+
+    public static List<String> colorizeList(List<String> str) {
+        for(int x=0; x<str.size(); x++) {
+            str.set(x, str.get(x).replace("&", ""));
+        }
+        return str;
     }
 }
