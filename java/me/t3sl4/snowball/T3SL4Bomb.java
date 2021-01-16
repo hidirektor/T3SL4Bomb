@@ -114,22 +114,22 @@ public class T3SL4Bomb extends JavaPlugin implements Listener {
         float range = MessageUtil.RANGE;
 
         if(nesne instanceof Snowball) {
-            if(MessageUtil.ENABLED_WORLDS.contains(nesne.getWorld().getName())) {
-                if(e.getEntity().getShooter() instanceof Player) {
-                    if(nesne.getType().equals(EntityType.SNOWBALL)) {
-                        if(p.getItemInHand().getItemMeta().hasDisplayName()) {
-                            if(displayName.equalsIgnoreCase(kartopuMeta.getDisplayName())) {
-                                if(p.getItemInHand().getItemMeta().getEnchants().equals(kartopuMeta.getEnchants())) {
-                                    if(p.getItemInHand().getItemMeta().getLore().equals(kartopuMeta.getLore())) {
+            if(e.getEntity().getShooter() instanceof Player) {
+                if(nesne.getType().equals(EntityType.SNOWBALL)) {
+                    if(p.getItemInHand().getItemMeta().hasDisplayName()) {
+                        if(displayName.equalsIgnoreCase(kartopuMeta.getDisplayName())) {
+                            if(p.getItemInHand().getItemMeta().getEnchants().equals(kartopuMeta.getEnchants())) {
+                                if(p.getItemInHand().getItemMeta().getLore().equals(kartopuMeta.getLore())) {
+                                    if(MessageUtil.ENABLED_WORLDS.contains(nesne.getWorld().getName())) {
                                         nesne.getWorld().createExplosion(nesne.getLocation(), range, false);
+                                    } else {
+                                        p.sendMessage((MessageUtil.WORLD).replaceAll("%kartopu%", MessageUtil.ITEMNAME));
                                     }
                                 }
                             }
                         }
                     }
                 }
-            } else {
-                p.sendMessage((MessageUtil.WORLD).replaceAll("%kartopu%", MessageUtil.ITEMNAME));
             }
         }
     }
