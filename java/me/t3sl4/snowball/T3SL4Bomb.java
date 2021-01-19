@@ -1,12 +1,17 @@
 package me.t3sl4.snowball;
 
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import me.t3sl4.snowball.util.MessageUtil;
 import me.t3sl4.snowball.util.SettingsManager;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
@@ -20,12 +25,10 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 
 public class T3SL4Bomb extends JavaPlugin implements Listener {
     ItemStack kartopu;
@@ -33,17 +36,22 @@ public class T3SL4Bomb extends JavaPlugin implements Listener {
     private static SettingsManager manager = SettingsManager.getInstance();
 
     public void onEnable() {
-        Bukkit.getConsoleSender().sendMessage("   ");
-        Bukkit.getConsoleSender().sendMessage("  ____   __   __  _   _   _____   _____   ____    _       _  _   ");
-        Bukkit.getConsoleSender().sendMessage(" / ___|  \\ \\ / / | \\ | | |_   _| |___ /  / ___|  | |     | || |  ");
-        Bukkit.getConsoleSender().sendMessage(" \\___ \\   \\ V /  |  \\| |   | |     |_ \\  \\___ \\  | |     | || |_ ");
-        Bukkit.getConsoleSender().sendMessage("  ___) |   | |   | |\\  |   | |    ___) |  ___) | | |___  |__   _|");
-        Bukkit.getConsoleSender().sendMessage(" |____/    |_|   |_| \\_|   |_|   |____/  |____/  |_____|    |_|  ");
-        Bukkit.getConsoleSender().sendMessage("    ");
-        getServer().getPluginManager().registerEvents(this, this);
-        manager.setup(this);
-        MessageUtil.loadMessages();
-        loadItem();
+        if(getWorldGuard() == null || getWorldEdit() == null) {
+            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Eklentinin Calisabilmesi Icin WorldGuard + WorldEdit Gereklidir!");
+            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Lutfen Sunucunuzla Destekli WorldGuard ve WorldEdit Eklentilerini Yukleyin !!");
+        } else {
+            Bukkit.getConsoleSender().sendMessage("   ");
+            Bukkit.getConsoleSender().sendMessage("  ____   __   __  _   _   _____   _____   ____    _       _  _   ");
+            Bukkit.getConsoleSender().sendMessage(" / ___|  \\ \\ / / | \\ | | |_   _| |___ /  / ___|  | |     | || |  ");
+            Bukkit.getConsoleSender().sendMessage(" \\___ \\   \\ V /  |  \\| |   | |     |_ \\  \\___ \\  | |     | || |_ ");
+            Bukkit.getConsoleSender().sendMessage("  ___) |   | |   | |\\  |   | |    ___) |  ___) | | |___  |__   _|");
+            Bukkit.getConsoleSender().sendMessage(" |____/    |_|   |_| \\_|   |_|   |____/  |____/  |_____|    |_|  ");
+            Bukkit.getConsoleSender().sendMessage("    ");
+            getServer().getPluginManager().registerEvents(this, this);
+            manager.setup(this);
+            MessageUtil.loadMessages();
+            loadItem();
+        }
     }
 
     @Override
@@ -112,6 +120,7 @@ public class T3SL4Bomb extends JavaPlugin implements Listener {
         Projectile nesne = e.getEntity();
         String displayName = p.getItemInHand().getItemMeta().getDisplayName();
         float range = MessageUtil.RANGE;
+        Iterator<ProtectedRegion> rgs = getWorldGuard().getRegionManager(nesne.getWorld()).getApplicableRegions(nesne.getLocation()).iterator();
 
         if(nesne instanceof Snowball) {
             if(e.getEntity().getShooter() instanceof Player) {
@@ -121,7 +130,9 @@ public class T3SL4Bomb extends JavaPlugin implements Listener {
                             if(p.getItemInHand().getItemMeta().getEnchants().equals(kartopuMeta.getEnchants())) {
                                 if(p.getItemInHand().getItemMeta().getLore().equals(kartopuMeta.getLore())) {
                                     if(MessageUtil.ENABLED_WORLDS.contains(nesne.getWorld().getName())) {
-                                        nesne.getWorld().createExplosion(nesne.getLocation(), range, false);
+                                        if(!(rgs.hasNext())) {
+                                            nesne.getWorld().createExplosion(nesne.getLocation(), range, false);
+                                        }
                                     } else {
                                         p.sendMessage((MessageUtil.WORLD).replaceAll("%kartopu%", MessageUtil.ITEMNAME));
                                     }
@@ -142,5 +153,23 @@ public class T3SL4Bomb extends JavaPlugin implements Listener {
         kartopuMeta.addEnchant(Enchantment.DURABILITY, 10, true);
         kartopuMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         kartopu.setItemMeta(kartopuMeta);
+    }
+
+    private WorldGuardPlugin getWorldGuard() {
+        Plugin pl = getServer().getPluginManager().getPlugin("WorldGuard");
+
+        if(pl == null || !(pl instanceof WorldGuardPlugin)) {
+            return null;
+        }
+        return (WorldGuardPlugin) pl;
+    }
+
+    private WorldEditPlugin getWorldEdit() {
+        Plugin pl = getServer().getPluginManager().getPlugin("WorldEdit");
+
+        if(pl == null || !(pl instanceof WorldGuardPlugin)) {
+            return null;
+        }
+        return (WorldEditPlugin) pl;
     }
 }
