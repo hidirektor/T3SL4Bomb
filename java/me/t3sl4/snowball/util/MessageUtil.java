@@ -49,12 +49,12 @@ public class MessageUtil {
     }
 
     public static String colorize(String str) {
-        return str.replace("&", "");
+        return str.replace("&", "§");
     }
 
     public static List<String> colorizeList(List<String> str) {
         for(int x=0; x<str.size(); x++) {
-            str.set(x, str.get(x).replace("&", ""));
+            str.set(x, str.get(x).replace("&", "§"));
         }
         return str;
     }
