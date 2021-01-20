@@ -15,10 +15,7 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
-import org.bukkit.entity.Snowball;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
@@ -122,19 +119,21 @@ public class T3SL4Bomb extends JavaPlugin implements Listener {
         float range = MessageUtil.RANGE;
         Iterator<ProtectedRegion> rgs = getWorldGuard().getRegionManager(nesne.getWorld()).getApplicableRegions(nesne.getLocation()).iterator();
 
-        if(nesne instanceof Snowball) {
-            if(e.getEntity().getShooter() instanceof Player) {
-                if(nesne.getType().equals(EntityType.SNOWBALL)) {
-                    if(p.getItemInHand().getItemMeta().hasDisplayName()) {
-                        if(displayName.equalsIgnoreCase(kartopuMeta.getDisplayName())) {
-                            if(p.getItemInHand().getItemMeta().getEnchants().equals(kartopuMeta.getEnchants())) {
-                                if(p.getItemInHand().getItemMeta().getLore().equals(kartopuMeta.getLore())) {
-                                    if(MessageUtil.ENABLED_WORLDS.contains(nesne.getWorld().getName())) {
-                                        if(!(rgs.hasNext())) {
-                                            nesne.getWorld().createExplosion(nesne.getLocation(), range, false);
+        if(!(nesne.getShooter() instanceof Wither)) {
+            if(nesne instanceof Snowball) {
+                if(e.getEntity().getShooter() instanceof Player) {
+                    if(nesne.getType().equals(EntityType.SNOWBALL)) {
+                        if(p.getItemInHand().getItemMeta().hasDisplayName()) {
+                            if(displayName.equalsIgnoreCase(kartopuMeta.getDisplayName())) {
+                                if(p.getItemInHand().getItemMeta().getEnchants().equals(kartopuMeta.getEnchants())) {
+                                    if(p.getItemInHand().getItemMeta().getLore().equals(kartopuMeta.getLore())) {
+                                        if(MessageUtil.ENABLED_WORLDS.contains(nesne.getWorld().getName())) {
+                                            if(!(rgs.hasNext())) {
+                                                nesne.getWorld().createExplosion(nesne.getLocation(), range, false);
+                                            }
+                                        } else {
+                                            p.sendMessage((MessageUtil.WORLD).replaceAll("%kartopu%", MessageUtil.ITEMNAME));
                                         }
-                                    } else {
-                                        p.sendMessage((MessageUtil.WORLD).replaceAll("%kartopu%", MessageUtil.ITEMNAME));
                                     }
                                 }
                             }
