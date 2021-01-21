@@ -13,7 +13,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class BombCommand implements CommandExecutor {
-    T3SL4Bomb t3sl4bomb = new T3SL4Bomb();
     private static SettingsManager manager = SettingsManager.getInstance();
 
     @Override
@@ -46,7 +45,7 @@ public class BombCommand implements CommandExecutor {
                         Player oyuncu = (Player) sender;
                         int adet = Integer.parseInt(args[1]);
                         for(int i=0; i<adet; i++) {
-                            oyuncu.getInventory().addItem(t3sl4bomb.kartopu);
+                            oyuncu.getInventory().addItem(T3SL4Bomb.item.kartopu);
                         }
                         sender.sendMessage((MessageUtil.ADD).replaceAll("%adet%", String.valueOf(adet)).replaceAll("%kartopu%", MessageUtil.ITEMNAME));
                     }
@@ -60,7 +59,7 @@ public class BombCommand implements CommandExecutor {
                     int adet = Integer.parseInt(args[2]);
                     if(Bukkit.getPlayer(args[1]).isOnline()) {
                         for(int i=0; i<adet; i++) {
-                            Bukkit.getPlayer(args[1]).getInventory().addItem(t3sl4bomb.kartopu);
+                            Bukkit.getPlayer(args[1]).getInventory().addItem(T3SL4Bomb.item.kartopu);
                         }
                         Bukkit.getPlayer(args[1]).sendMessage((MessageUtil.ADD).replaceAll("%adet%", String.valueOf(adet)).replaceAll("%kartopu%", MessageUtil.ITEMNAME));
                         sender.sendMessage((MessageUtil.GIVE).replaceAll("%player%", Bukkit.getPlayer(args[1]).getName()).replaceAll("%adet%", String.valueOf(adet)).replaceAll("%kartopu%", MessageUtil.ITEMNAME));
