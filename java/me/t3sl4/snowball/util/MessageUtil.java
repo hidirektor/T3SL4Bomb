@@ -23,6 +23,8 @@ public class MessageUtil {
     public static String PLAYER;
     public static String CONSOLE;
     public static String ONLINE;
+    public static boolean OBSIDIAN;
+    public static int AMOUNT;
 
     static SettingsManager manager = SettingsManager.getInstance();
 
@@ -46,6 +48,8 @@ public class MessageUtil {
         PLAYER = PREFIX + colorize(manager.getConfig().getString("Messages.player"));
         CONSOLE = PREFIX + colorize(manager.getConfig().getString("Messages.console"));
         ONLINE = PREFIX + colorize(manager.getConfig().getString("Messages.online"));
+        OBSIDIAN = manager.getConfig().getBoolean("Settings.obsidian");
+        AMOUNT = manager.getConfig().getInt("Settings.amount");
     }
 
     public static String colorize(String str) {

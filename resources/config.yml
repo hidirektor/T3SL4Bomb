@@ -1,9 +1,11 @@
-Prefix: '&6&lT3SL4Claim &8» '
+Prefix: '&6&lT3SL4Bomb &8» '
 Settings:
   enabled-worlds:
     - 'world'
-    - 'Orman'
+    - 'orman'
   explosive-range: 4.0
+  obsidian: true
+  amount: 3
 Item:
   name: '&6&lBovem Bomba'
   lore:
