@@ -25,6 +25,8 @@ public class MessageUtil {
     public static String ONLINE;
     public static boolean OBSIDIAN;
     public static int AMOUNT;
+    public static String INVENTORY_IS_FULL;
+    public static String INVENTORY_FULL;
 
     static SettingsManager manager = SettingsManager.getInstance();
 
@@ -50,6 +52,8 @@ public class MessageUtil {
         ONLINE = PREFIX + colorize(manager.getConfig().getString("Messages.online"));
         OBSIDIAN = manager.getConfig().getBoolean("Settings.obsidian");
         AMOUNT = manager.getConfig().getInt("Settings.amount");
+        INVENTORY_IS_FULL = PREFIX + colorize(manager.getConfig().getString("Messages.inventory-is-full"));
+        INVENTORY_FULL = PREFIX + colorize(manager.getConfig().getString("Messages.inventory-full"));
     }
 
     public static String colorize(String str) {

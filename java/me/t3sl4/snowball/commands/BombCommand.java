@@ -11,6 +11,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class BombCommand implements CommandExecutor {
     private static SettingsManager manager = SettingsManager.getInstance();
@@ -44,6 +45,17 @@ public class BombCommand implements CommandExecutor {
                     } else {
                         Player oyuncu = (Player) sender;
                         int adet = Integer.parseInt(args[1]);
+                        int kontrol = 0;
+                        for (ItemStack i : Bukkit.getPlayer(args[1]).getInventory()) {
+                            if (i == null) {
+                                kontrol++;
+                            }
+                        }
+                        if(kontrol != 0) {
+
+                        } else {
+                            oyuncu.sendMessage((MessageUtil.INVENTORY_FULL).replaceAll("%kartopu%", MessageUtil.ITEMNAME));
+                        }
                         for(int i=0; i<adet; i++) {
                             oyuncu.getInventory().addItem(T3SL4Bomb.item.kartopu);
                         }
@@ -58,8 +70,19 @@ public class BombCommand implements CommandExecutor {
                 } else {
                     int adet = Integer.parseInt(args[2]);
                     if(Bukkit.getPlayer(args[1]).isOnline()) {
-                        for(int i=0; i<adet; i++) {
-                            Bukkit.getPlayer(args[1]).getInventory().addItem(T3SL4Bomb.item.kartopu);
+                        int kontrol = 0;
+                        for (ItemStack i : Bukkit.getPlayer(args[1]).getInventory()) {
+                            if (i == null) {
+                                kontrol++;
+                            }
+                        }
+                        if(kontrol != 0) {
+                            for(int i=0; i<adet; i++) {
+                                Bukkit.getPlayer(args[1]).getInventory().addItem(T3SL4Bomb.item.kartopu);
+                            }
+                        } else {
+                            sender.sendMessage((MessageUtil.INVENTORY_IS_FULL).replaceAll("%player%", Bukkit.getPlayer(args[1]).getName()).replaceAll("%kartopu%", MessageUtil.ITEMNAME));
+                            Bukkit.getPlayer(args[1]).sendMessage((MessageUtil.INVENTORY_FULL).replaceAll("%kartopu%", MessageUtil.ITEMNAME));
                         }
                         Bukkit.getPlayer(args[1]).sendMessage((MessageUtil.ADD).replaceAll("%adet%", String.valueOf(adet)).replaceAll("%kartopu%", MessageUtil.ITEMNAME));
                         sender.sendMessage((MessageUtil.GIVE).replaceAll("%player%", Bukkit.getPlayer(args[1]).getName()).replaceAll("%adet%", String.valueOf(adet)).replaceAll("%kartopu%", MessageUtil.ITEMNAME));

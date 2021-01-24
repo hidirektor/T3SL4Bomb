@@ -32,3 +32,5 @@ Messages:
   player: "&eBelirtilen Oyuncu Bulunamadı!"
   console: "&cDostum Bu Komutu Konsoldan Kullanamazsın!"
   online: "&b%player% &eAdlı Oyuncu Çevrimiçi Değil."
+  inventory-is-full: "%player% &7Adlı Oyuncunun Envanteri Dolu Olduğu İçin %kartopu% &7Oyuncunun Envanterine Eklenemedi."
+  inventory-full: "&7Dostum Maalesef Envanterin Dolu Olduğu İçin %kartopu% &7Envanterine Eklenemedi."
