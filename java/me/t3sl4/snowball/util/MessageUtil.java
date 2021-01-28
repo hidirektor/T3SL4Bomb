@@ -27,6 +27,8 @@ public class MessageUtil {
     public static int AMOUNT;
     public static String INVENTORY_IS_FULL;
     public static String INVENTORY_FULL;
+    public static String RIGHTPLAYER;
+    public static String NUMBER;
 
     static SettingsManager manager = SettingsManager.getInstance();
 
@@ -54,6 +56,7 @@ public class MessageUtil {
         AMOUNT = manager.getConfig().getInt("Settings.amount");
         INVENTORY_IS_FULL = PREFIX + colorize(manager.getConfig().getString("Messages.inventory-is-full"));
         INVENTORY_FULL = PREFIX + colorize(manager.getConfig().getString("Messages.inventory-full"));
+        NUMBER = PREFIX + colorize(manager.getConfig().getString("Messages.number"));
     }
 
     public static String colorize(String str) {

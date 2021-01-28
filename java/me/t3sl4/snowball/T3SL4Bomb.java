@@ -9,11 +9,7 @@ import me.t3sl4.snowball.util.MessageUtil;
 import me.t3sl4.snowball.util.SettingsManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.CommandExecutor;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.inventory.ItemFlag;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -31,13 +27,6 @@ public class T3SL4Bomb extends JavaPlugin {
             Bukkit.getConsoleSender().sendMessage(" |____/    |_|   |_| \\_|   |_|   |____/  |____/  |_____|    |_|  ");
             Bukkit.getConsoleSender().sendMessage("    ");
             enable();
-            item.kartopu = new ItemStack(Material.SNOW_BALL);
-            item.kartopuMeta = item.kartopu.getItemMeta();
-            item.kartopuMeta.setDisplayName(MessageUtil.ITEMNAME);
-            item.kartopuMeta.setLore(MessageUtil.ITEMLORE);
-            item.kartopuMeta.addEnchant(Enchantment.DURABILITY, 10, true);
-            item.kartopuMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-            item.kartopu.setItemMeta(item.kartopuMeta);
         } else {
             Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Eklentinin Calisabilmesi Icin WorldGuard + WorldEdit Gereklidir!");
             Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Lutfen Sunucunuzla Destekli WorldGuard ve WorldEdit Eklentilerini Yukleyin !!");
@@ -49,6 +38,7 @@ public class T3SL4Bomb extends JavaPlugin {
         loadListeners();
         manager.setup(this);
         MessageUtil.loadMessages();
+        item.loadItem(item);
     }
 
     private void loadCommands() {
