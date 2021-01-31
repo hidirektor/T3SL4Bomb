@@ -27,8 +27,9 @@ public class MessageUtil {
     public static int AMOUNT;
     public static String INVENTORY_IS_FULL;
     public static String INVENTORY_FULL;
-    public static String RIGHTPLAYER;
     public static String NUMBER;
+    public static long COOLDOWN;
+    public static String COOLDOWNERROR;
 
     static SettingsManager manager = SettingsManager.getInstance();
 
@@ -57,6 +58,8 @@ public class MessageUtil {
         INVENTORY_IS_FULL = PREFIX + colorize(manager.getConfig().getString("Messages.inventory-is-full"));
         INVENTORY_FULL = PREFIX + colorize(manager.getConfig().getString("Messages.inventory-full"));
         NUMBER = PREFIX + colorize(manager.getConfig().getString("Messages.number"));
+        COOLDOWN = manager.getConfig().getInt("Settings.cooldown");
+        COOLDOWNERROR = PREFIX + colorize(manager.getConfig().getString("Messages.cooldown-error"));
     }
 
     public static String colorize(String str) {

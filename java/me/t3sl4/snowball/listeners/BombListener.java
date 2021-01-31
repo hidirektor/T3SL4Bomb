@@ -15,12 +15,33 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.Plugin;
 
 import java.util.*;
 
 public class BombListener implements Listener {
     private final Map<BlockLocation, Integer> obsidianBlocks = new HashMap<>();
+    private HashMap<UUID, Long> cooldown = new HashMap<UUID, Long>();
+    private long cooldowntime = MessageUtil.COOLDOWN;
+
+    @EventHandler
+    public void onLaunch(ProjectileLaunchEvent e) {
+        Projectile nesne = (Projectile) e.getEntity();
+        if(nesne instanceof Snowball) {
+            Snowball kartopu = (Snowball) nesne;
+            LivingEntity livingEntity = (LivingEntity) kartopu.getShooter();
+            if(livingEntity instanceof Player) {
+                Player p = (Player) nesne.getShooter();
+                if (Cooldown.tryCooldown(p, "kartopu", MessageUtil.COOLDOWN*1000) == false) {
+                    p.getInventory().addItem(T3SL4Bomb.item.kartopu);
+                    e.setCancelled(true);
+                    p.sendMessage((MessageUtil.COOLDOWNERROR).replaceAll("%bomba%", MessageUtil.ITEMNAME).replaceAll("%time%", String.valueOf((Cooldown.getCooldown(p, "kartopu") / 1000))));
+                }
+            }
+        }
+    }
 
     @EventHandler
     public void onHit(ProjectileHitEvent e) {
@@ -39,6 +60,7 @@ public class BombListener implements Listener {
                             if(p.getItemInHand().getItemMeta().getLore().equals(T3SL4Bomb.item.kartopuMeta.getLore())) {
                                 if(MessageUtil.ENABLED_WORLDS.contains(nesne.getWorld().getName())) {
                                     if(!(rgs.hasNext())) {
+                                        Cooldown.tryCooldown(p, "kartopu", MessageUtil.COOLDOWN*1000);
                                         Entity tntPrimed = kartopu.getWorld().spawn(kartopu.getLocation(), TNTPrimed.class);
                                         ((TNTPrimed)tntPrimed).setFuseTicks(0);
                                         kartopu.remove();

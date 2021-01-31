@@ -4,6 +4,7 @@ Settings:
     - 'world'
     - 'orman'
   explosive-range: 4.0
+  cooldown: 3
   obsidian: true
   amount: 3
 Item:
@@ -35,3 +36,4 @@ Messages:
   inventory-is-full: "%player% &7Adlı Oyuncunun Envanteri Dolu Olduğu İçin %kartopu% &7Oyuncunun Envanterine Eklenemedi."
   inventory-full: "&7Dostum Maalesef Envanterin Dolu Olduğu İçin %kartopu% &7Envanterine Eklenemedi."
   number: "&e%sayi% &7Geçerli Bir Sayı Değil!"
+  cooldown-error: "&7Tekrar %bomba% &7Kullanabilmek için &e%time% &7Beklemelisin."
