@@ -34,10 +34,21 @@ public class BombListener implements Listener {
             LivingEntity livingEntity = (LivingEntity) kartopu.getShooter();
             if(livingEntity instanceof Player) {
                 Player p = (Player) nesne.getShooter();
-                if (Cooldown.tryCooldown(p, "kartopu", MessageUtil.COOLDOWN*1000) == false) {
-                    p.getInventory().addItem(T3SL4Bomb.item.kartopu);
-                    e.setCancelled(true);
-                    p.sendMessage((MessageUtil.COOLDOWNERROR).replaceAll("%bomba%", MessageUtil.ITEMNAME).replaceAll("%time%", String.valueOf((Cooldown.getCooldown(p, "kartopu") / 1000))));
+                String displayName = p.getItemInHand().getItemMeta().getDisplayName();
+                if(p.getItemInHand().getItemMeta().hasDisplayName()) {
+                    if(displayName.equalsIgnoreCase(T3SL4Bomb.item.kartopuMeta.getDisplayName())) {
+                        if(p.getItemInHand().getItemMeta().getEnchants().equals(T3SL4Bomb.item.kartopuMeta.getEnchants())) {
+                            if(p.getItemInHand().getItemMeta().getLore().equals(T3SL4Bomb.item.kartopuMeta.getLore())) {
+                                if(MessageUtil.ENABLED_WORLDS.contains(nesne.getWorld().getName())) {
+                                    if (Cooldown.tryCooldown(p, "kartopu", MessageUtil.COOLDOWN*1000) == false) {
+                                        p.getInventory().addItem(T3SL4Bomb.item.kartopu);
+                                        e.setCancelled(true);
+                                        p.sendMessage((MessageUtil.COOLDOWNERROR).replaceAll("%bomba%", MessageUtil.ITEMNAME).replaceAll("%time%", String.valueOf((Cooldown.getCooldown(p, "kartopu") / 1000))));
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
