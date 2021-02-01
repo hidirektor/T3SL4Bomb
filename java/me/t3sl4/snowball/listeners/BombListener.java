@@ -35,18 +35,12 @@ public class BombListener implements Listener {
             if(livingEntity instanceof Player) {
                 Player p = (Player) nesne.getShooter();
                 String displayName = p.getItemInHand().getItemMeta().getDisplayName();
-                if(p.getItemInHand().getItemMeta().hasDisplayName()) {
-                    if(displayName.equalsIgnoreCase(T3SL4Bomb.item.kartopuMeta.getDisplayName())) {
-                        if(p.getItemInHand().getItemMeta().getEnchants().equals(T3SL4Bomb.item.kartopuMeta.getEnchants())) {
-                            if(p.getItemInHand().getItemMeta().getLore().equals(T3SL4Bomb.item.kartopuMeta.getLore())) {
-                                if(MessageUtil.ENABLED_WORLDS.contains(nesne.getWorld().getName())) {
-                                    if (Cooldown.tryCooldown(p, "kartopu", MessageUtil.COOLDOWN*1000) == false) {
-                                        p.getInventory().addItem(T3SL4Bomb.item.kartopu);
-                                        e.setCancelled(true);
-                                        p.sendMessage((MessageUtil.COOLDOWNERROR).replaceAll("%bomba%", MessageUtil.ITEMNAME).replaceAll("%time%", String.valueOf((Cooldown.getCooldown(p, "kartopu") / 1000))));
-                                    }
-                                }
-                            }
+                if(stepControl(p)) {
+                    if(MessageUtil.ENABLED_WORLDS.contains(nesne.getWorld().getName())) {
+                        if (Cooldown.tryCooldown(p, "kartopu", MessageUtil.COOLDOWN*1000) == false) {
+                            p.getInventory().addItem(T3SL4Bomb.item.kartopu);
+                            e.setCancelled(true);
+                            p.sendMessage((MessageUtil.COOLDOWNERROR).replaceAll("%bomba%", MessageUtil.ITEMNAME).replaceAll("%time%", String.valueOf((Cooldown.getCooldown(p, "kartopu") / 1000))));
                         }
                     }
                 }
@@ -65,22 +59,16 @@ public class BombListener implements Listener {
             if(livingEntity instanceof Player) {
                 Player p = (Player) livingEntity;
                 String displayName = p.getItemInHand().getItemMeta().getDisplayName();
-                if(p.getItemInHand().getItemMeta().hasDisplayName()) {
-                    if(displayName.equalsIgnoreCase(T3SL4Bomb.item.kartopuMeta.getDisplayName())) {
-                        if(p.getItemInHand().getItemMeta().getEnchants().equals(T3SL4Bomb.item.kartopuMeta.getEnchants())) {
-                            if(p.getItemInHand().getItemMeta().getLore().equals(T3SL4Bomb.item.kartopuMeta.getLore())) {
-                                if(MessageUtil.ENABLED_WORLDS.contains(nesne.getWorld().getName())) {
-                                    if(!(rgs.hasNext())) {
-                                        Cooldown.tryCooldown(p, "kartopu", MessageUtil.COOLDOWN*1000);
-                                        Entity tntPrimed = kartopu.getWorld().spawn(kartopu.getLocation(), TNTPrimed.class);
-                                        ((TNTPrimed)tntPrimed).setFuseTicks(0);
-                                        kartopu.remove();
-                                    }
-                                } else {
-                                    p.sendMessage((MessageUtil.WORLD).replaceAll("%kartopu%", MessageUtil.ITEMNAME));
-                                }
-                            }
+                if(stepControl(p)) {
+                    if(MessageUtil.ENABLED_WORLDS.contains(nesne.getWorld().getName())) {
+                        if(!(rgs.hasNext())) {
+                            Cooldown.tryCooldown(p, "kartopu", MessageUtil.COOLDOWN*1000);
+                            Entity tntPrimed = kartopu.getWorld().spawn(kartopu.getLocation(), TNTPrimed.class);
+                            ((TNTPrimed)tntPrimed).setFuseTicks(0);
+                            kartopu.remove();
                         }
+                    } else {
+                        p.sendMessage((MessageUtil.WORLD).replaceAll("%kartopu%", MessageUtil.ITEMNAME));
                     }
                 }
             }
@@ -141,5 +129,19 @@ public class BombListener implements Listener {
             return null;
         }
         return (WorldGuardPlugin) pl;
+    }
+
+    public boolean stepControl(Player p) {
+        String displayName = p.getItemInHand().getItemMeta().getDisplayName();
+        if(p.getItemInHand().getItemMeta().hasDisplayName()) {
+            if(displayName.equalsIgnoreCase(T3SL4Bomb.item.kartopuMeta.getDisplayName())) {
+                if(p.getItemInHand().getItemMeta().getEnchants().equals(T3SL4Bomb.item.kartopuMeta.getEnchants())) {
+                    if(p.getItemInHand().getItemMeta().getLore().equals(T3SL4Bomb.item.kartopuMeta.getLore())) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }
