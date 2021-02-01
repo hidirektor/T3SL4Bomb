@@ -5,35 +5,33 @@ Settings:
     - 'orman'
   explosive-range: 4.0
   cooldown: 3
-  obsidian: true
+  obsidian: false
   amount: 3
 Item:
-  name: '&6&lBovem Bomba'
+  name: '&6&lBovem Bomb'
   lore:
     - '&r  '
-    - '&7Fırlattığınız alanda patlama yaratır'
-    - '&7ama obsidyenleri patlatmaz.'
-    - '&eTNT &7kullanarak, obsidyenleri'
-    - '&7patlatabilirsiniz.'
+    - '&7Creates an explosion in the area you throw.'
+    - '&7but does not detonate obsidians.'
     - '&r     '
-    - '&6&lDEĞERLİ BOMBA'
+    - '&6&lPRECIOUS BOMB'
 Commands:
   help1: '&8&l&m-&f&l&m-&8&l&m-&f&l&m-&8&l&m-&f&l&m-&8&l&m[&6 &lT3SL4Bomb &8&l&m]&f&l&m-&8&l&m-&f&l&m-&8&l&m-&f&l&m-&8&l&m-'
-  help2: '&a/tb take &bAdet &f»&eBelirttiğin Miktarda %kartopu% &eAlırsın.'
-  help3: '&a/tb give &bOyuncu &cAdet &f»&eBelirttiğin Oyuncuya %kartopu% &eVerir.'
-  help4: '&a/tb reload &f»&eEklentiyi Yeniler'
+  help2: '&a/tb take &bAmount &f»&eYou get the amount of %kartopu% you specified.'
+  help3: '&a/tb give &bPlayer &cAmount &f»&eGives the specified amount of %kartopu% to the player you specified. .'
+  help4: '&a/tb reload &f»&eReloads the plugin'
 Messages:
-  reload: "&eEklenti Başarılı Bir Şekilde Yenilendi."
-  perm: "&cDostum Maalesef Bunun İçin Yetkin Yok."
-  world: "&cDostum &bMaalesef %kartopu% Bulunduğun Dünyada Kullanılamaz."
-  add: "&eEnvanterine &6%adet% &eTane %kartopu% &eEklendi."
-  give: "&b%player% &eAdlı Oyuncunun Envanterine &6%adet% &eTane %kartopu% &eEklendi."
-  arg-give: "&eDoğru Kullanım: &b/tb give &cOyuncu &eAdet"
-  arg-take: "&eDoğru Kullanım &b/tb take &bAdet"
-  player: "&eBelirtilen Oyuncu Bulunamadı!"
-  console: "&cDostum Bu Komutu Konsoldan Kullanamazsın!"
-  online: "&b%player% &eAdlı Oyuncu Çevrimiçi Değil."
-  inventory-is-full: "%player% &7Adlı Oyuncunun Envanteri Dolu Olduğu İçin %kartopu% &7Oyuncunun Envanterine Eklenemedi."
-  inventory-full: "&7Dostum Maalesef Envanterin Dolu Olduğu İçin %kartopu% &7Envanterine Eklenemedi."
-  number: "&e%sayi% &7Geçerli Bir Sayı Değil!"
-  cooldown-error: "&7Tekrar %bomba% &7Kullanabilmek için &e%time% &7Beklemelisin."
+  reload: "&eReload Successfully completed."
+  perm: "&cYou dont have permission to use this command."
+  world: "%kartopu% &ccan not be used in the world you are in."
+  add: "&6%adet% %kartopu% &ehave been added to your inventory."
+  give: "&6%kartopu% %kartopu% &ehave been added to &b%player% &e's inventory."
+  arg-give: "&eUsage: &b/tb give &c<Player> &e<Amount>"
+  arg-take: "&eUsage: &b/tb take &bAmount"
+  player: "&eSpecified player not found !"
+  console: "&cYou can not use this command from console!"
+  online: "&b%player% &eis not online."
+  inventory-is-full: "&7The %kartopu% &7could not be added to the &e%player%&7's inventory because inventory was full. "
+  inventory-full: "&7The %kartopu% &7could not be added to your inventory because your inventory was full. "
+  number: "&e%sayi% &7it's not a valid number !"
+  cooldown-error: "&7You have to wait &e%time% seconds &7before you can use %bomba% &7again."

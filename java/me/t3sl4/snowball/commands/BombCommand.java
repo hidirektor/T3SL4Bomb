@@ -24,7 +24,7 @@ public class BombCommand implements CommandExecutor {
         if(cmd.getName().equalsIgnoreCase("tb")) {
             if(args.length == 0) {
                 Player hover = (Player) sender;
-                if(sender.isOp() || sender.hasPermission("t3sl4bomb.genel")) {
+                if(sender.isOp() || sender.hasPermission("t3sl4bomb.general")) {
                     hover.sendMessage(MessageUtil.HELP1);
                     hover.sendMessage((MessageUtil.HELP2).replaceAll("%kartopu%", MessageUtil.ITEMNAME));
                     hover.sendMessage((MessageUtil.HELP3).replaceAll("%kartopu%", MessageUtil.ITEMNAME));

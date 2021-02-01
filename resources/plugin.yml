@@ -1,5 +1,5 @@
 name: T3SL4Bomb
-version: 20.01.2021
+version: 02.02.2021
 author: SYN_T3SL4
 main: me.t3sl4.snowball.T3SL4Bomb
 depend: [WorldGuard, WorldEdit]

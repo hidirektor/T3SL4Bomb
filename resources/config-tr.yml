@@ -1,0 +1,39 @@
+Prefix: '&6&lT3SL4Bomb &8» '
+Settings:
+  enabled-worlds:
+    - 'world'
+    - 'orman'
+  explosive-range: 4.0
+  cooldown: 3
+  obsidian: true
+  amount: 3
+Item:
+  name: '&6&lBovem Bomba'
+  lore:
+    - '&r  '
+    - '&7Fırlattığınız alanda patlama yaratır'
+    - '&7ama obsidyenleri patlatmaz.'
+    - '&eTNT &7kullanarak, obsidyenleri'
+    - '&7patlatabilirsiniz.'
+    - '&r     '
+    - '&6&lDEĞERLİ BOMBA'
+Commands:
+  help1: '&8&l&m-&f&l&m-&8&l&m-&f&l&m-&8&l&m-&f&l&m-&8&l&m[&6 &lT3SL4Bomb &8&l&m]&f&l&m-&8&l&m-&f&l&m-&8&l&m-&f&l&m-&8&l&m-'
+  help2: '&a/tb take &bAdet &f»&eBelirttiğin Miktarda %kartopu% &eAlırsın.'
+  help3: '&a/tb give &bOyuncu &cAdet &f»&eBelirttiğin Oyuncuya %kartopu% &eVerir.'
+  help4: '&a/tb reload &f»&eEklentiyi Yeniler'
+Messages:
+  reload: "&eEklenti Başarılı Bir Şekilde Yenilendi."
+  perm: "&cDostum Maalesef Bunun İçin Yetkin Yok."
+  world: "&cDostum &bMaalesef %kartopu% Bulunduğun Dünyada Kullanılamaz."
+  add: "&eEnvanterine &6%adet% &eTane %kartopu% &eEklendi."
+  give: "&b%player% &eAdlı Oyuncunun Envanterine &6%adet% &eTane %kartopu% &eEklendi."
+  arg-give: "&eDoğru Kullanım: &b/tb give &cOyuncu &eAdet"
+  arg-take: "&eDoğru Kullanım &b/tb take &bAdet"
+  player: "&eBelirtilen Oyuncu Bulunamadı!"
+  console: "&cDostum Bu Komutu Konsoldan Kullanamazsın!"
+  online: "&b%player% &eAdlı Oyuncu Çevrimiçi Değil."
+  inventory-is-full: "%player% &7Adlı Oyuncunun Envanteri Dolu Olduğu İçin %kartopu% &7Oyuncunun Envanterine Eklenemedi."
+  inventory-full: "&7Dostum Maalesef Envanterin Dolu Olduğu İçin %kartopu% &7Envanterine Eklenemedi."
+  number: "&e%sayi% &7Geçerli Bir Sayı Değil!"
+  cooldown-error: "&7Tekrar %bomba% &7Kullanabilmek için &e%time% &7Beklemelisin."
