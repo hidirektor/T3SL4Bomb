@@ -12,19 +12,46 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityExplodeEvent;
-import org.bukkit.event.entity.ExplosionPrimeEvent;
-import org.bukkit.event.entity.ProjectileHitEvent;
-import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 import java.util.*;
 
 public class BombListener implements Listener {
     private final Map<BlockLocation, Integer> obsidianBlocks = new HashMap<>();
-    private HashMap<UUID, Long> cooldown = new HashMap<UUID, Long>();
-    private long cooldowntime = MessageUtil.COOLDOWN;
+    boolean heldKartopu = false;
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onInteract(PlayerInteractEvent e) {
+        if(e.getAction() == Action.RIGHT_CLICK_AIR) {
+            Player p = e.getPlayer();
+            ItemStack clicked = p.getItemInHand();
+            if(clicked.getType() == Material.SNOW_BALL) {
+                if(clicked.getItemMeta().hasDisplayName()) {
+                    if(clicked.getItemMeta().getDisplayName().equalsIgnoreCase(MessageUtil.ITEMNAME)) {
+                        if(clicked.getItemMeta().getEnchants().equals(T3SL4Bomb.item.kartopuMeta.getEnchants())) {
+                            if(clicked.getItemMeta().getLore().equals(T3SL4Bomb.item.kartopuMeta.getLore())) {
+                                heldKartopu = true;
+                            } else {
+                                heldKartopu = false;
+                            }
+                        } else {
+                            heldKartopu = false;
+                        }
+                    } else {
+                        heldKartopu = false;
+                    }
+                } else {
+                    heldKartopu = false;
+                }
+            } else {
+                heldKartopu = false;
+            }
+        }
+    }
 
     @EventHandler
     public void onLaunch(ProjectileLaunchEvent e) {
@@ -34,14 +61,14 @@ public class BombListener implements Listener {
             LivingEntity livingEntity = (LivingEntity) kartopu.getShooter();
             if(livingEntity instanceof Player) {
                 Player p = (Player) nesne.getShooter();
-                String displayName = p.getItemInHand().getItemMeta().getDisplayName();
-                if(stepControl(p)) {
+                if(heldKartopu) {
                     if(MessageUtil.ENABLED_WORLDS.contains(nesne.getWorld().getName())) {
                         if (Cooldown.tryCooldown(p, "kartopu", MessageUtil.COOLDOWN*1000) == false) {
                             p.getInventory().addItem(T3SL4Bomb.item.kartopu);
                             e.setCancelled(true);
                             p.sendMessage((MessageUtil.COOLDOWNERROR).replaceAll("%bomba%", MessageUtil.ITEMNAME).replaceAll("%time%", String.valueOf((Cooldown.getCooldown(p, "kartopu") / 1000))));
                         }
+                    } else {
                     }
                 }
             }
@@ -58,8 +85,7 @@ public class BombListener implements Listener {
             LivingEntity livingEntity = (LivingEntity) kartopu.getShooter();
             if(livingEntity instanceof Player) {
                 Player p = (Player) livingEntity;
-                String displayName = p.getItemInHand().getItemMeta().getDisplayName();
-                if(stepControl(p)) {
+                if(heldKartopu) {
                     if(MessageUtil.ENABLED_WORLDS.contains(nesne.getWorld().getName())) {
                         if(!(rgs.hasNext())) {
                             Cooldown.tryCooldown(p, "kartopu", MessageUtil.COOLDOWN*1000);
@@ -132,8 +158,8 @@ public class BombListener implements Listener {
     }
 
     public boolean stepControl(Player p) {
-        String displayName = p.getItemInHand().getItemMeta().getDisplayName();
         if(p.getItemInHand().getItemMeta().hasDisplayName()) {
+            String displayName = p.getItemInHand().getItemMeta().getDisplayName();
             if(displayName.equalsIgnoreCase(T3SL4Bomb.item.kartopuMeta.getDisplayName())) {
                 if(p.getItemInHand().getItemMeta().getEnchants().equals(T3SL4Bomb.item.kartopuMeta.getEnchants())) {
                     if(p.getItemInHand().getItemMeta().getLore().equals(T3SL4Bomb.item.kartopuMeta.getLore())) {
