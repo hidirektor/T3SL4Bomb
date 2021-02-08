@@ -26,6 +26,7 @@ public class T3SL4Bomb extends JavaPlugin {
             Bukkit.getConsoleSender().sendMessage("  ___) |   | |   | |\\  |   | |    ___) |  ___) | | |___  |__   _|");
             Bukkit.getConsoleSender().sendMessage(" |____/    |_|   |_| \\_|   |_|   |____/  |____/  |_____|    |_|  ");
             Bukkit.getConsoleSender().sendMessage("    ");
+			Bukkit.getConsoleSender().sendMessage("T3SL4 Series: T3SL4Bomb");
             enable();
         } else {
             Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Eklentinin Calisabilmesi Icin WorldGuard + WorldEdit Gereklidir!");
